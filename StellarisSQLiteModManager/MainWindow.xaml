@@ -1,0 +1,51 @@
+﻿<Window x:Class="StellarisSQLiteModManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StellarisSQLiteModManager"
+        xmlns:models="clr-namespace:StellarisSQLiteModManager.Models"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:properties="clr-namespace:StellarisSQLiteModManager.Properties"
+        mc:Ignorable="d"
+        Title="Stellaris SQLite Mod Manager" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.NewPlayset}" Margin="5" Click="NewPlayset_Click"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="{x:Static properties:Resources.ClonePlayset}" Margin="5" IsEnabled="{Binding IsPlaysetSelected}" Click="ClonePlayset_Click"/>
+        <TextBlock Grid.Row="1" Text="{x:Static properties:Resources.SelectPlayset}"/>
+        <ComboBox Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" MinWidth="150" Margin="5" ItemsSource="{Binding Path=AllPlaysets, Mode=OneWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedPlayset, Mode=TwoWay}"/>
+        <Grid Grid.Row="3" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static properties:Resources.ModsInPlayset}"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static properties:Resources.RemainingMods}"/>
+            <DataGrid Grid.Row="1" Grid.Column="0" CanUserSortColumns="True" ItemsSource="{Binding SelectedMods}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" AllowDrop="True" CanUserResizeRows="False"
+                      dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding SelectedDropHandler}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{x:Static properties:Resources.Index}" IsReadOnly="True" Binding="{Binding Index}"/>
+                    <DataGridTextColumn Header="{x:Static properties:Resources.Modname}" IsReadOnly="True" Binding="{Binding ModName}" Width="*"/>
+                    <DataGridCheckBoxColumn Header="{x:Static properties:Resources.Active}" Binding="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding UnselectedMods}" DisplayMemberPath="Modname" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding UnselectedDropHandler}">
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

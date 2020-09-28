@@ -70,6 +70,15 @@ namespace StellarisSQLiteModManager.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Clone Playset ähnelt.
         /// </summary>
         public static string ClonePlayset {
@@ -97,11 +106,47 @@ namespace StellarisSQLiteModManager.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Export Playset ähnelt.
+        /// </summary>
+        public static string ExportPlayset {
+            get {
+                return ResourceManager.GetString("ExportPlayset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Overwrite File ähnelt.
+        /// </summary>
+        public static string FileOverwriteQuestion {
+            get {
+                return ResourceManager.GetString("FileOverwriteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Import Playset ähnelt.
+        /// </summary>
+        public static string ImportPlayset {
+            get {
+                return ResourceManager.GetString("ImportPlayset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Index ähnelt.
         /// </summary>
         public static string Index {
             get {
                 return ResourceManager.GetString("Index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Missing Mods ähnelt.
+        /// </summary>
+        public static string MissingMods {
+            get {
+                return ResourceManager.GetString("MissingMods", resourceCulture);
             }
         }
         
@@ -133,6 +178,24 @@ namespace StellarisSQLiteModManager.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die OK ähnelt.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Paradox Link ähnelt.
+        /// </summary>
+        public static string PdxLink {
+            get {
+                return ResourceManager.GetString("PdxLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Unused Mods ähnelt.
         /// </summary>
         public static string RemainingMods {
@@ -147,6 +210,15 @@ namespace StellarisSQLiteModManager.Properties {
         public static string SelectPlayset {
             get {
                 return ResourceManager.GetString("SelectPlayset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Steam Link ähnelt.
+        /// </summary>
+        public static string SteamLink {
+            get {
+                return ResourceManager.GetString("SteamLink", resourceCulture);
             }
         }
     }

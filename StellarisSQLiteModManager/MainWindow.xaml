@@ -19,13 +19,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Button Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.NewPlayset}" Margin="5" Click="NewPlayset_Click"/>
         <Button Grid.Row="0" Grid.Column="1" Content="{x:Static properties:Resources.ClonePlayset}" Margin="5" IsEnabled="{Binding IsPlaysetSelected}" Click="ClonePlayset_Click"/>
+        <Button Grid.Row="0" Grid.Column="2" Content="{x:Static properties:Resources.ExportPlayset}" Margin="5" IsEnabled="{Binding IsPlaysetSelected}" Click="ExportPlayset_Click"/>
+        <Button Grid.Row="0" Grid.Column="3" Content="{x:Static properties:Resources.ImportPlayset}" Margin="5" Click="ImportPlayset_Click"/>
         <TextBlock Grid.Row="1" Text="{x:Static properties:Resources.SelectPlayset}"/>
         <ComboBox Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" MinWidth="150" Margin="5" ItemsSource="{Binding Path=AllPlaysets, Mode=OneWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedPlayset, Mode=TwoWay}"/>
-        <Grid Grid.Row="3" Grid.ColumnSpan="3">
+        <Grid Grid.Row="3" Grid.ColumnSpan="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

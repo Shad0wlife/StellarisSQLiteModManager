@@ -120,6 +120,9 @@
   <data name="Active" xml:space="preserve">
     <value>Active</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ClonePlayset" xml:space="preserve">
     <value>Clone Playset</value>
   </data>
@@ -129,8 +132,20 @@
   <data name="EnterPlaysetNameQuestion" xml:space="preserve">
     <value>Please enter the Playset's name:</value>
   </data>
+  <data name="ExportPlayset" xml:space="preserve">
+    <value>Export Playset</value>
+  </data>
+  <data name="FileOverwriteQuestion" xml:space="preserve">
+    <value>Overwrite File</value>
+  </data>
+  <data name="ImportPlayset" xml:space="preserve">
+    <value>Import Playset</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>Index</value>
+  </data>
+  <data name="MissingMods" xml:space="preserve">
+    <value>Missing Mods</value>
   </data>
   <data name="Modname" xml:space="preserve">
     <value>Modname</value>
@@ -141,10 +156,19 @@
   <data name="NewPlayset" xml:space="preserve">
     <value>New Playset/Loadorder</value>
   </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PdxLink" xml:space="preserve">
+    <value>Paradox Link</value>
+  </data>
   <data name="RemainingMods" xml:space="preserve">
     <value>Unused Mods</value>
   </data>
   <data name="SelectPlayset" xml:space="preserve">
     <value>Select Playset:</value>
+  </data>
+  <data name="SteamLink" xml:space="preserve">
+    <value>Steam Link</value>
   </data>
 </root>

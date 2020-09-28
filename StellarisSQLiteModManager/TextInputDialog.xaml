@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StellarisSQLiteModManager"
+        xmlns:properties="clr-namespace:StellarisSQLiteModManager.Properties"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         MinWidth="250"
@@ -17,8 +18,8 @@
         <TextBlock Grid.Row="0" Text="{Binding Path=QuestionText, TargetNullValue='$Question'}" Margin="5"/>
         <TextBox Grid.Row="1" Text="{Binding Path=ResultText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="5"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Content="$OK" Margin="5" IsDefault="True" IsEnabled="{Binding Path=ValueValid}" Padding="5,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="OKButton_Click"/>
-            <Button Content="$Cancel" IsCancel="True" Margin="5" Padding="5,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="CancelButton_Click"/>
+            <Button Content="{x:Static properties:Resources.OK}" Margin="5" IsDefault="True" IsEnabled="{Binding Path=ValueValid}" Padding="5,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="OKButton_Click"/>
+            <Button Content="{x:Static properties:Resources.Cancel}" IsCancel="True" Margin="5" Padding="5,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -92,6 +92,16 @@ namespace StellarisSQLiteModManager.ViewModels
             DatabaseFunctions.Singleton.ReloadPlaysets(AllPlaysets);
         }
 
+        public void ExportCurrentPlayset()
+        {
+            DatabaseFunctions.Singleton.ExportPlayset(SelectedPlayset);
+        }
+
+        public void ImportPlayset()
+        {
+            DatabaseFunctions.Singleton.ImportPlayset();
+        }
+
     }
 
     public abstract class ModManagerDropHandler : IDropTarget

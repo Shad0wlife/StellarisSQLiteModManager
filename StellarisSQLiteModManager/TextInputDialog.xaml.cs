@@ -21,11 +21,17 @@ namespace StellarisSQLiteModManager
     /// </summary>
     public partial class TextInputDialog : Window, INotifyPropertyChanged
     {
-        public TextInputDialog(string title, string question)
+        public TextInputDialog(string title, string question) : this(title, question, "")
+        {
+
+        }
+
+        public TextInputDialog(string title, string question, string defaultAnswer)
         {
             Title = title;
             QuestionText = question;
             DataContext = this;
+            ResultText = defaultAnswer;
 
             InitializeComponent();
         }

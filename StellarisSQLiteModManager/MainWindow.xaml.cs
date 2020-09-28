@@ -48,5 +48,16 @@ namespace StellarisSQLiteModManager
                 ViewModel.ClonePlayset(dialog.ResultText, ViewModel.SelectedPlayset);
             }
         }
+
+        private void ExportPlayset_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ExportCurrentPlayset();
+        }
+
+        private void ImportPlayset_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ImportPlayset();
+            //TODO Import from file, check for missing mods
+        }
     }
 }

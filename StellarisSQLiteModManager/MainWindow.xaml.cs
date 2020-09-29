@@ -59,5 +59,14 @@ namespace StellarisSQLiteModManager
             ViewModel.ImportPlayset();
             //TODO Import from file, check for missing mods
         }
+
+        private void DeletePlayset_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(Properties.Resources.ReallyDeletePlayset + " \"" + ViewModel.SelectedPlayset.Name + "\"?", Properties.Resources.ReallyDeletePlayset + "?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if(result == MessageBoxResult.Yes)
+            {
+                ViewModel.DeletePlayset();
+            }
+        }
     }
 }

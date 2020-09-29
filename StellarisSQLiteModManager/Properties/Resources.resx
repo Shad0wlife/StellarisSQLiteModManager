@@ -126,6 +126,9 @@
   <data name="ClonePlayset" xml:space="preserve">
     <value>Clone Playset</value>
   </data>
+  <data name="DeletePlayset" xml:space="preserve">
+    <value>Delete Playset</value>
+  </data>
   <data name="EnterName" xml:space="preserve">
     <value>Enter Name</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="PdxLink" xml:space="preserve">
     <value>Paradox Link</value>
+  </data>
+  <data name="ReallyDeletePlayset" xml:space="preserve">
+    <value>Really Delete Playset</value>
   </data>
   <data name="RemainingMods" xml:space="preserve">
     <value>Unused Mods</value>

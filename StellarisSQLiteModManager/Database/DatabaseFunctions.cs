@@ -98,6 +98,40 @@ namespace StellarisSQLiteModManager.Database
             }
         }
 
+        public void DeletePlayset(Playset playset)
+        {
+            using (SqliteConnection connection = new SqliteConnection($"Data Source={connectionPath}"))
+            {
+                connection.Open();
+
+                SqliteTransaction transcation = connection.BeginTransaction();
+
+                try
+                {
+                    SqliteCommand deleteChildrenCommand = connection.CreateCommand();
+                    deleteChildrenCommand.CommandText = $"DELETE FROM playsets_mods WHERE playsetId = @playsetID;";
+                    deleteChildrenCommand.Parameters.AddWithValue("@playsetID", playset.UUID);
+                    deleteChildrenCommand.Prepare();
+
+                    deleteChildrenCommand.ExecuteNonQuery();
+
+                    SqliteCommand deleteParentCommand = connection.CreateCommand();
+                    deleteParentCommand.CommandText = $"DELETE FROM playsets WHERE id = @playsetID;";
+                    deleteParentCommand.Parameters.AddWithValue("@playsetID", playset.UUID);
+                    deleteParentCommand.Prepare();
+
+                    deleteParentCommand.ExecuteNonQuery();
+
+                    transcation.Commit();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Exception: " + e.Message + "\r\nRolling Back!");
+                    transcation.Rollback();
+                }
+            }
+        }
+
         public void ClonePlaysetToNew(string newPlaysetName, Playset fromPlayset)
         {
             using (SqliteConnection connection = new SqliteConnection($"Data Source={connectionPath}"))

@@ -88,6 +88,15 @@ namespace StellarisSQLiteModManager.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Delete Playset ähnelt.
+        /// </summary>
+        public static string DeletePlayset {
+            get {
+                return ResourceManager.GetString("DeletePlayset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Enter Name ähnelt.
         /// </summary>
         public static string EnterName {
@@ -192,6 +201,15 @@ namespace StellarisSQLiteModManager.Properties {
         public static string PdxLink {
             get {
                 return ResourceManager.GetString("PdxLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Really Delete Playset ähnelt.
+        /// </summary>
+        public static string ReallyDeletePlayset {
+            get {
+                return ResourceManager.GetString("ReallyDeletePlayset", resourceCulture);
             }
         }
         

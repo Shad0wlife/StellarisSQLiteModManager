@@ -102,6 +102,12 @@ namespace StellarisSQLiteModManager.ViewModels
             DatabaseFunctions.Singleton.ImportPlayset();
         }
 
+        public void DeletePlayset()
+        {
+            DatabaseFunctions.Singleton.DeletePlayset(SelectedPlayset);
+            SelectedPlayset = null;
+            ReloadPlaysets();
+        }
     }
 
     public abstract class ModManagerDropHandler : IDropTarget

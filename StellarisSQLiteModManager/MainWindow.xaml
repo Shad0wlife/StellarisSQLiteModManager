@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StellarisSQLiteModManager"
         xmlns:models="clr-namespace:StellarisSQLiteModManager.Models"
+        xmlns:convert="clr-namespace:StellarisSQLiteModManager.Converters"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:properties="clr-namespace:StellarisSQLiteModManager.Properties"
         mc:Ignorable="d"
         Title="Stellaris SQLite Mod Manager" Height="450" Width="800">
+
+    <Window.Resources>
+        <convert:BooleanToFontWeightConverter x:Key="BooleanToFontWeightConverter"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -30,7 +36,16 @@
         <Button Grid.Row="0" Grid.Column="3" Content="{x:Static properties:Resources.ImportPlayset}" Margin="5" Click="ImportPlayset_Click"/>
         <Button Grid.Row="0" Grid.Column="4" Content="{x:Static properties:Resources.DeletePlayset}" Margin="5" IsEnabled="{Binding IsPlaysetSelected}" Click="DeletePlayset_Click"/>
         <TextBlock Grid.Row="1" Text="{x:Static properties:Resources.SelectPlayset}"/>
-        <ComboBox Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" MinWidth="150" Margin="5" ItemsSource="{Binding Path=AllPlaysets, Mode=OneWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedPlayset, Mode=TwoWay}"/>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="6" Orientation="Horizontal">
+            <ComboBox HorizontalAlignment="Left" MinWidth="150" Margin="5" ItemsSource="{Binding Path=AllPlaysets, Mode=OneWay}" SelectedItem="{Binding Path=SelectedPlayset, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="Playset">
+                        <TextBlock Text="{Binding Name}" FontWeight="{Binding IsActive, Converter={StaticResource BooleanToFontWeightConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Content="{x:Static properties:Resources.ActivatePlayset}" Margin="5" IsEnabled="{Binding IsSelectedPlaysetNotActive}" Click="ActivatePlayset_Click"/>
+        </StackPanel>
         <Grid Grid.Row="3" Grid.ColumnSpan="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -42,8 +57,17 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static properties:Resources.ModsInPlayset}"/>
             <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static properties:Resources.RemainingMods}"/>
-            <DataGrid Grid.Row="1" Grid.Column="0" CanUserSortColumns="True" ItemsSource="{Binding SelectedMods}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" AllowDrop="True" CanUserResizeRows="False"
+            <DataGrid Grid.Row="1" Grid.Column="0" Name="SelectedModsDatagrid" CanUserSortColumns="True" ItemsSource="{Binding SelectedMods}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" AllowDrop="True" CanUserResizeRows="False"
                       dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding SelectedDropHandler}">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{x:Static properties:Resources.ActivateSelected}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItems}" Command="{Binding SelectCommand}"/>
+                        <MenuItem Header="{x:Static properties:Resources.DeactivateSelected}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItems}" Command="{Binding UnselectCommand}"/>
+                        <Separator/>
+                        <MenuItem Header="{x:Static properties:Resources.ActivateAll}" CommandParameter="{Binding SelectedMods}" Command="{Binding SelectCommand}"/>
+                        <MenuItem Header="{x:Static properties:Resources.DeactivateAll}" CommandParameter="{Binding SelectedMods}" Command="{Binding UnselectCommand}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static properties:Resources.Index}" IsReadOnly="True" Binding="{Binding Index}"/>
                     <DataGridTextColumn Header="{x:Static properties:Resources.Modname}" IsReadOnly="True" Binding="{Binding ModName}" Width="*"/>

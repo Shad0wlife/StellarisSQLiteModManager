@@ -61,6 +61,33 @@ namespace StellarisSQLiteModManager.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Activate All ähnelt.
+        /// </summary>
+        public static string ActivateAll {
+            get {
+                return ResourceManager.GetString("ActivateAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Set as active Playset ähnelt.
+        /// </summary>
+        public static string ActivatePlayset {
+            get {
+                return ResourceManager.GetString("ActivatePlayset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Activate Selected Mods ähnelt.
+        /// </summary>
+        public static string ActivateSelected {
+            get {
+                return ResourceManager.GetString("ActivateSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Active ähnelt.
         /// </summary>
         public static string Active {
@@ -84,6 +111,24 @@ namespace StellarisSQLiteModManager.Properties {
         public static string ClonePlayset {
             get {
                 return ResourceManager.GetString("ClonePlayset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Deactivate All ähnelt.
+        /// </summary>
+        public static string DeactivateAll {
+            get {
+                return ResourceManager.GetString("DeactivateAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Deactivate Selected Mods ähnelt.
+        /// </summary>
+        public static string DeactivateSelected {
+            get {
+                return ResourceManager.GetString("DeactivateSelected", resourceCulture);
             }
         }
         

@@ -104,7 +104,7 @@ namespace StellarisSQLiteModManager.Database
             {
                 connection.Open();
 
-                SqliteTransaction transcation = connection.BeginTransaction();
+                SqliteTransaction transaction = connection.BeginTransaction();
 
                 try
                 {
@@ -122,12 +122,47 @@ namespace StellarisSQLiteModManager.Database
 
                     deleteParentCommand.ExecuteNonQuery();
 
-                    transcation.Commit();
+                    transaction.Commit();
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine("Exception: " + e.Message + "\r\nRolling Back!");
-                    transcation.Rollback();
+                    transaction.Rollback();
+                }
+            }
+        }
+
+
+        public bool ActivatePlayset(Playset playset)
+        {
+            using (SqliteConnection connection = new SqliteConnection($"Data Source={connectionPath}"))
+            {
+                connection.Open();
+
+                SqliteTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    SqliteCommand deactivateCurrentCommand = connection.CreateCommand();
+                    deactivateCurrentCommand.CommandText = $"UPDATE playsets SET isActive = false WHERE isActive = true;";
+
+                    deactivateCurrentCommand.ExecuteNonQuery();
+
+                    SqliteCommand activateNewCommand = connection.CreateCommand();
+                    activateNewCommand.CommandText = $"UPDATE playsets SET isActive = true WHERE id = @playsetID;";
+                    activateNewCommand.Parameters.AddWithValue("@playsetID", playset.UUID);
+                    activateNewCommand.Prepare();
+
+                    activateNewCommand.ExecuteNonQuery();
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Exception: " + e.Message + "\r\nRolling Back!");
+                    transaction.Rollback();
+                    return false;
                 }
             }
         }
@@ -137,7 +172,7 @@ namespace StellarisSQLiteModManager.Database
             using (SqliteConnection connection = new SqliteConnection($"Data Source={connectionPath}"))
             {
                 connection.Open();
-                SqliteTransaction transcation = connection.BeginTransaction();
+                SqliteTransaction transaction = connection.BeginTransaction();
 
                 Playset newPlayset = createNewPlaysetOnConnection(newPlaysetName, connection);
 
@@ -152,11 +187,11 @@ namespace StellarisSQLiteModManager.Database
 
                     fillCommand.ExecuteNonQuery();
 
-                    transcation.Commit();
+                    transaction.Commit();
                 }catch(Exception e)
                 {
                     Debug.WriteLine("Exception: " + e.Message + "\r\nRolling Back!");
-                    transcation.Rollback();
+                    transaction.Rollback();
                 }
             }
         }
@@ -178,7 +213,7 @@ namespace StellarisSQLiteModManager.Database
 
             createCommand.ExecuteNonQuery();
 
-            return new Playset(uuid, newPlaysetName);
+            return new Playset(uuid, newPlaysetName, false);
         }
 
         private bool CheckForExistingPlaysetUUID(string uuid, SqliteConnection openConnection)
@@ -214,14 +249,15 @@ namespace StellarisSQLiteModManager.Database
                 connection.Open();
 
                 SqliteCommand command = connection.CreateCommand();
-                command.CommandText = $"SELECT id, name FROM playsets;";
+                command.CommandText = $"SELECT id, name, isActive FROM playsets;";
 
                 SqliteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     string uuid = reader.GetString(0);
                     string name = reader.GetString(1);
-                    collection.Add(new Playset(uuid, name));
+                    bool isActive = reader.GetBoolean(2);
+                    collection.Add(new Playset(uuid, name, isActive));
                 }
             }
 

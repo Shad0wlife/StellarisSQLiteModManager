@@ -1,4 +1,5 @@
 ﻿using GongSolutions.Wpf.DragDrop;
+using StellarisSQLiteModManager.Commands;
 using StellarisSQLiteModManager.Database;
 using StellarisSQLiteModManager.Models;
 using System;
@@ -23,10 +24,14 @@ namespace StellarisSQLiteModManager.ViewModels
             SelectedMods = new ObservableCollection<ModInPlayset>();
             UnselectedMods = new ObservableCollection<Mod>();
 
+            SelectCommand = new ToggleSelectionCommand(SelectedMods, true);
+            UnselectCommand = new ToggleSelectionCommand(SelectedMods, false);
+
             SelectedDropHandler = new SelectedDropHandler(this);
             UnselectedDropHandler = new UnselectedDropHandler(this);
 
             DatabaseFunctions.Singleton.ReloadPlaysets(AllPlaysets);
+            ActivePlayset = AllPlaysets.Where((playset) => { return playset.IsActive; }).FirstOrDefault();
             DatabaseFunctions.Singleton.ReloadAllMods(AllMods);
         }
 
@@ -43,6 +48,10 @@ namespace StellarisSQLiteModManager.ViewModels
         public ObservableCollection<Playset> AllPlaysets { get; }
         public SelectedDropHandler SelectedDropHandler { get; }
         public UnselectedDropHandler UnselectedDropHandler { get; }
+        public ToggleSelectionCommand SelectCommand { get; }
+        public ToggleSelectionCommand UnselectCommand { get; }
+        private Playset ActivePlayset { get; set; }
+
 
         private Playset selectedPlayset;
         public Playset SelectedPlayset
@@ -58,6 +67,7 @@ namespace StellarisSQLiteModManager.ViewModels
                     selectedPlayset = value;
                     NotifyPropertyChanged();
                     NotifyPropertyChanged(nameof(IsPlaysetSelected));
+                    NotifyPropertyChanged(nameof(IsSelectedPlaysetNotActive));
                     DatabaseFunctions.Singleton.ReloadPlaysetMods(AllMods, SelectedMods, UnselectedMods, SelectedPlayset);
                 }
             }
@@ -68,6 +78,18 @@ namespace StellarisSQLiteModManager.ViewModels
             get
             {
                 if(SelectedPlayset != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public bool IsSelectedPlaysetNotActive
+        {
+            get
+            {
+                if(SelectedPlayset != null && !SelectedPlayset.IsActive)
                 {
                     return true;
                 }
@@ -107,6 +129,21 @@ namespace StellarisSQLiteModManager.ViewModels
             DatabaseFunctions.Singleton.DeletePlayset(SelectedPlayset);
             SelectedPlayset = null;
             ReloadPlaysets();
+        }
+
+        public void ActivateCurrentPlayset()
+        {
+            bool result = DatabaseFunctions.Singleton.ActivatePlayset(SelectedPlayset);
+            if (result)
+            {
+                if(ActivePlayset != null)
+                {
+                    ActivePlayset.IsActive = false;
+                }
+                SelectedPlayset.IsActive = true;
+                ActivePlayset = SelectedPlayset;
+                NotifyPropertyChanged(nameof(IsSelectedPlaysetNotActive));
+            }
         }
     }
 

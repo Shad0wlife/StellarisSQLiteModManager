@@ -68,5 +68,10 @@ namespace StellarisSQLiteModManager
                 ViewModel.DeletePlayset();
             }
         }
+
+        private void ActivatePlayset_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ActivateCurrentPlayset();
+        }
     }
 }
